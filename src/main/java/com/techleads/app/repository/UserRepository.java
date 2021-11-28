@@ -1,5 +1,6 @@
 package com.techleads.app.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.techleads.app.common.DBQueries;
+import com.techleads.app.model.Expenses;
 import com.techleads.app.model.Users;
 
 @Repository
@@ -16,7 +18,8 @@ public class UserRepository {
 
 	public Users findById(Integer id) {
 		Object[] params = { id };
-		Users user = jdbcTemplate.query(DBQueries.SELECT_USER_BY_ID, new ExtractUserByIds(), params);
+		Users user = jdbcTemplate.query(DBQueries.SELECT_USER_BY_ID, new ExtractUserById(), params);
+		
 		return user;
 
 	}

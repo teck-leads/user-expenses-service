@@ -1,0 +1,10 @@
+CREATE TABLE users (
+	id INT(6) NOT NULL AUTO_INCREMENT,
+	name VARCHAR(40) NOT NULL,
+	location VARCHAR(30) NOT NULL,
+	cardType VARCHAR(30) NOT NULL,
+	cardNumber VARCHAR(30) NOT NULL,
+	cvvNumber VARCHAR(30) NOT NULL,
+	
+	PRIMARY KEY (id)
+   );

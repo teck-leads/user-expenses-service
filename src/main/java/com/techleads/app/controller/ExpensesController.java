@@ -1,6 +1,7 @@
 package com.techleads.app.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,15 @@ public class ExpensesController {
 
 		List<Expenses> expensesByUserId = expensesService.findExpensesByUserId(userid);
 		return expensesByUserId;
+
+	}
+
+	@GetMapping(value = { "/expenses/user/{userid}/{monthValue}" })
+	public List<Expenses> findExpensesByUserIdByMonth(@PathVariable("userid") Integer userId,
+			@PathVariable("monthValue") Integer monthValue) {
+		List<Expenses> expenses = expensesService.findExpensesByUserIdByMonth(userId, monthValue);
+
+		return expenses;
 
 	}
 

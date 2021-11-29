@@ -1,6 +1,8 @@
 package com.techleads.app.service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,18 @@ public class ExpensesService {
 
 	public List<Expenses> findExpensesByUserId(Integer userId) {
 		List<Expenses> expenses = expensesRepository.findExpensesByUserId(userId);
+		
+		expenses=expenses.parallelStream().sorted(Comparator.comparing(Expenses::getDateOfExpense).reversed()).collect(Collectors.toList());
 
+		return expenses;
+
+	}
+	
+	public List<Expenses> findExpensesByUserIdByMonth(Integer userId, int monthValue) {
+		List<Expenses> expenses = expensesRepository.findExpensesByUserId(userId);
+
+		expenses = expenses.parallelStream().filter(exp -> exp.getDateOfExpense().getMonth().getValue() == monthValue)
+				.collect(Collectors.toList());
 		return expenses;
 
 	}

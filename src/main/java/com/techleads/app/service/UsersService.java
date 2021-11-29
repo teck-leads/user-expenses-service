@@ -2,6 +2,7 @@ package com.techleads.app.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,14 +26,14 @@ public class UsersService {
 
 		List<Expenses> findExpensesByUserId = expensesService.findExpensesByUserId(id);
 		user.setExpenses(findExpensesByUserId);
-		
-		double totalExpenses = 0;
-		for(Expenses expns: findExpensesByUserId) {
-			totalExpenses=totalExpenses+expns.getPrice();
-		}
+
+		Double totalExpenses = findExpensesByUserId.stream().collect(Collectors.summingDouble(Expenses::getPrice));
+//		double totalExpenses = 0;
+//		for(Expenses expns: findExpensesByUserId) {
+//			totalExpenses=totalExpenses+expns.getPrice();
+//		}
 		user.setTotalExpenditure(totalExpenses);
-		
-		
+
 		if (user.getExpenses() == null) {
 			Expenses exp = new Expenses();
 			List<Expenses> expns = new ArrayList<>();
@@ -42,6 +43,15 @@ public class UsersService {
 		}
 		return user;
 
+	}
+
+	public Users findUserByIdExpensesByMonth(Integer id, int monthValue) {
+		Users user = userRepository.findById(id);
+		List<Expenses> findExpensesByUserIdByMonth = expensesService.findExpensesByUserIdByMonth(id, monthValue);
+		user.setExpenses(findExpensesByUserIdByMonth);
+		Double totalExpenses = findExpensesByUserIdByMonth.parallelStream().collect(Collectors.summingDouble(Expenses::getPrice));
+		user.setTotalExpenditure(totalExpenses);
+		return user;
 	}
 
 	public List<Users> findAllUsers() {

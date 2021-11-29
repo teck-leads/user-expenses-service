@@ -19,10 +19,18 @@ public class UsersController {
 	@Autowired
 	private UsersService usersService;
 
-	@GetMapping(value = { "/users/{id}" })
-	public Users findUserById(@PathVariable("id") Integer id) {
+	@GetMapping(value = { "/users/{userid}" })
+	public Users findUserById(@PathVariable("userid") Integer userId) {
 
-		Users user = usersService.findUserById(id);
+		Users user = usersService.findUserById(userId);
+		return user;
+
+	}
+
+	@GetMapping(value = { "/users/{userid}/{monthValue}" })
+	public Users findUserById(@PathVariable("userid") Integer userId, @PathVariable("monthValue") Integer monthValue) {
+
+		Users user = usersService.findUserByIdExpensesByMonth(userId, monthValue);
 		return user;
 
 	}
@@ -51,10 +59,10 @@ public class UsersController {
 
 	}
 
-	@DeleteMapping(value = { "/users/{id}" })
-	public String deleteUserById(@PathVariable("id") Integer id) {
+	@DeleteMapping(value = { "/users/{userId}" })
+	public String deleteUserById(@PathVariable("userId") Integer userId) {
 
-		String result = usersService.deleteUserById(id);
+		String result = usersService.deleteUserById(userId);
 		return result;
 
 	}

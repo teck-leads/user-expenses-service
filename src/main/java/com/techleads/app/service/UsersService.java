@@ -25,6 +25,14 @@ public class UsersService {
 
 		List<Expenses> findExpensesByUserId = expensesService.findExpensesByUserId(id);
 		user.setExpenses(findExpensesByUserId);
+		
+		double totalExpenses = 0;
+		for(Expenses expns: findExpensesByUserId) {
+			totalExpenses=totalExpenses+expns.getPrice();
+		}
+		user.setTotalExpenditure(totalExpenses);
+		
+		
 		if (user.getExpenses() == null) {
 			Expenses exp = new Expenses();
 			List<Expenses> expns = new ArrayList<>();

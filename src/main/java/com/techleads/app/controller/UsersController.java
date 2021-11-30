@@ -27,7 +27,7 @@ public class UsersController {
 
 	}
 
-	@GetMapping(value = { "/users/{userid}/{monthValue}" })
+	@GetMapping(value = { "/users/{userid}/month/{monthValue}" })
 	public Users findUserById(@PathVariable("userid") Integer userId, @PathVariable("monthValue") Integer monthValue) {
 
 		Users user = usersService.findUserByIdExpensesByMonth(userId, monthValue);

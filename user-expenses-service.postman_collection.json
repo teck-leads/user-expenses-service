@@ -143,7 +143,7 @@
 		{
 			"name": "Find users by Id and expense by Month",
 			"request": {
-				"url": "http://localhost:8082/users/101",
+				"url": "http://localhost:8082/users/101/month/11",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -155,6 +155,17 @@
 			"name": "Find Expenses by userId and expense Year",
 			"request": {
 				"url": "http://localhost:8082/expenses/user/101/year/2021",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Find users by Id and expense by Year",
+			"request": {
+				"url": "http://localhost:8082/users/101/year/2021",
 				"method": "GET",
 				"header": [],
 				"body": {},

@@ -28,9 +28,17 @@ public class UsersController {
 	}
 
 	@GetMapping(value = { "/users/{userid}/month/{monthValue}" })
-	public Users findUserById(@PathVariable("userid") Integer userId, @PathVariable("monthValue") Integer monthValue) {
+	public Users findUserByIdExpensesByMonth(@PathVariable("userid") Integer userId, @PathVariable("monthValue") Integer monthValue) {
 
 		Users user = usersService.findUserByIdExpensesByMonth(userId, monthValue);
+		return user;
+
+	}
+	
+	@GetMapping(value = { "/users/{userid}/year/{year}" })
+	public Users findUserByIdExpensesByYear(@PathVariable("userid") Integer userId, @PathVariable("year") Integer year) {
+
+		Users user = usersService.findUserByIdExpensesByYear(userId, year);
 		return user;
 
 	}

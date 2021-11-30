@@ -55,6 +55,16 @@ public class UsersService {
 		return user;
 	}
 
+	public Users findUserByIdExpensesByYear(Integer id, int year) {
+		Users user = userRepository.findById(id);
+		List<Expenses> findExpensesByUserIdByYear = expensesService.findExpensesByUserIdByYear(id, year);
+		user.setExpenses(findExpensesByUserIdByYear);
+		Double totalExpenses = findExpensesByUserIdByYear.parallelStream()
+				.collect(Collectors.summingDouble(Expenses::getPrice));
+		user.setTotalExpenditure(totalExpenses);
+		return user;
+	}
+
 	public List<Users> findAllUsers() {
 
 		List<Users> users = userRepository.findAllUsers();

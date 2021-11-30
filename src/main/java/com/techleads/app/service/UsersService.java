@@ -49,7 +49,8 @@ public class UsersService {
 		Users user = userRepository.findById(id);
 		List<Expenses> findExpensesByUserIdByMonth = expensesService.findExpensesByUserIdByMonth(id, monthValue);
 		user.setExpenses(findExpensesByUserIdByMonth);
-		Double totalExpenses = findExpensesByUserIdByMonth.parallelStream().collect(Collectors.summingDouble(Expenses::getPrice));
+		Double totalExpenses = findExpensesByUserIdByMonth.parallelStream()
+				.collect(Collectors.summingDouble(Expenses::getPrice));
 		user.setTotalExpenditure(totalExpenses);
 		return user;
 	}
